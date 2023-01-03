@@ -9,6 +9,8 @@
 #include "script_mgr.hpp"
 #include "thread_pool.hpp"
 #include "version.hpp"
+#include "shv_runner.hpp"
+#include "asi_loader/asiloader.hpp"
 
 #include "backend/backend.hpp"
 #include "native_hooks/native_hooks.hpp"
@@ -111,6 +113,7 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 				g_script_mgr.add_script(std::make_unique<script>(&backend::turnsignal_loop, "Turn Signals"));
 				g_script_mgr.add_script(std::make_unique<script>(&backend::disable_control_action_loop, "Disable Controls"));
 				g_script_mgr.add_script(std::make_unique<script>(&context_menu_service::context_menu, "Context Menu"));
+				g_script_mgr.add_script(std::make_unique<script>(&shv_runner::script_func, "ASI Loader"));
 				LOG(INFO) << "Scripts registered.";
 
 				g_hooking->enable();
@@ -120,6 +123,8 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 				LOG(INFO) << "Dynamic native hooker initialized.";
 
 				g_running = true;
+
+				ASILoader::Initialize();
 
 				while (g_running)
 					std::this_thread::sleep_for(500ms);

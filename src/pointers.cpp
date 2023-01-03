@@ -4,6 +4,7 @@
 #include "rage/atSingleton.hpp"
 #include "security/RageSecurity.hpp"
 #include "hooking.hpp"
+#include "asi_loader/pools.hpp"
 
 extern "C" void	sound_overload_detour();
 std::uint64_t g_sound_overload_ret_addr;
@@ -778,6 +779,41 @@ namespace big
 		main_batch.add("PMFS", "48 8B C4 48 89 58 08 48 89 68 10 48 89 70 18 48 89 78 20 41 56 48 83 EC 30 49 8B E8 4C 8D 40 EC 49 8B F1 48 8B D9 40 32 FF E8", [this](memory::handle ptr)
 		{
 			m_prepare_metric_for_sending = ptr.as<PVOID>();
+		});
+
+		main_batch.add("Register File", "40 88 7C 24 ? E8 ? ? ? ? 0F B7 44 24 ?", [this](memory::handle ptr)
+		{
+			m_register_file = ptr.add(5).as<functions::register_file_t>();
+		});
+
+		main_batch.add("Get Script Handle", "83 F9 FF 74 31 4C 8B 0D", [this](memory::handle ptr)
+		{
+			m_get_script_handle = ptr.as<functions::get_script_handle_t>();
+		});
+
+		main_batch.add("Ped Pool", "48 8B 05 ? ? ? ? 41 0F BF C8", [this](memory::handle ptr)
+		{
+			m_ped_pool = ptr.add(3).as<rage::GenericPool*>();
+		});
+
+		main_batch.add("Vehicle Pool", "48 8B 05 ? ? ? ? F3 0F 59 F6 48 8B 08", [this](memory::handle ptr)
+		{
+			m_vehicle_pool = *(rage::VehiclePool**)(*(uintptr_t*)ptr.add(3).rip().as<uintptr_t>());
+		});
+
+		main_batch.add("Prop Pool", "48 8B 05 ? ? ? ? 8B 78 10 85 FF", [this](memory::handle ptr)
+		{
+			m_prop_pool = ptr.add(3).rip().as<rage::GenericPool*>();
+		});
+
+		main_batch.add("Pickup Pool", "4C 8B 05 ? ? ? ? 40 8A F2 8B E9", [this](memory::handle ptr)
+		{
+			m_pickup_pool = ptr.add(3).rip().as<rage::GenericPool*>();
+		});
+
+		main_batch.add("Camera Pool", "48 8B C8 EB 02 33 C9 48 85 C9 74 26", [this](memory::handle ptr)
+		{
+			m_camera_pool = ptr.add(-9).rip().as<rage::GenericPool*>();
 		});
 
 		auto mem_region = memory::module("GTA5.exe");

@@ -6,6 +6,7 @@
 #include "gta/fwddec.hpp"
 #include "gta/replay.hpp"
 #include "memory/byte_patch.hpp"
+#include "asi_loader/pools.hpp"
 
 class CCommunications;
 class FriendRegistry;
@@ -227,6 +228,14 @@ namespace big
 		functions::sync_network_time m_sync_network_time;
 
 		rage::rlGamerInfo* m_chat_gamer_info;
+
+		functions::register_file_t m_register_file{};
+		functions::get_script_handle_t m_get_script_handle{};
+		rage::GenericPool* m_ped_pool{};
+		rage::VehiclePool* m_vehicle_pool{};
+		rage::GenericPool* m_prop_pool{};
+		rage::GenericPool* m_pickup_pool{};
+		rage::GenericPool* m_camera_pool{};
 	};
 
 	inline pointers* g_pointers{};

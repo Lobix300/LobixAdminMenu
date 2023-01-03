@@ -1,6 +1,7 @@
 #include "hooking.hpp"
 #include "renderer.hpp"
 #include "script.hpp"
+#include "asi_loader/scriptmanager.hpp"
 
 namespace big
 {
@@ -11,6 +12,7 @@ namespace big
 			if (g_running)
 			{
 				g_renderer->wndproc(hwnd, msg, wparam, lparam);
+				ScriptManager::WndProc(hwnd, msg, wparam, lparam);
 			}
 
 			return CallWindowProcW(g_hooking->m_og_wndproc, hwnd, msg, wparam, lparam);

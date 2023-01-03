@@ -118,4 +118,6 @@ namespace big::functions
 	using save_json_data = char*(*)(datafile_commands::SveFileObject* object, int* out_length, const char* reason);
 
 	using sync_network_time = bool(*)(rage::netConnectionManager* mgr, rage::netConnectionPeer* peer, int connection_id, rage::netTimeSyncMsg* msg, int flags);
+	using register_file_t = uint32_t * (*)(int*, const char*, bool, const char*, bool);
+	using get_script_handle_t = int64_t(*)(int64_t);
 }
