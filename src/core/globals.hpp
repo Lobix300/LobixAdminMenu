@@ -294,12 +294,12 @@ namespace big
 
 				NLOHMANN_DEFINE_TYPE_INTRUSIVE(custom_time, hour, minute, second)
 			} custom_time;
-			bool disable_chat_filter = false;
+			bool disable_chat_filter = true;
 			bool log_chat_messages = false;
 			bool log_text_messages = false;
 			bool decloak_players = false;
-			bool force_session_host = false;
-			bool force_script_host = false;
+			bool force_session_host = true;
+			bool force_script_host = true;
 			bool player_magnet_enabled = false;
 			int player_magnet_count = 32;
 			bool is_team = false;
@@ -584,7 +584,7 @@ namespace big
 
 		struct esp
 		{
-			bool enabled = true;
+			bool enabled = false;
 			bool hide_self = true;
 			float global_render_distance[2] = { 0.f, 600.f };
 			float tracer_render_distance[2] = { 200.f, 600.f };

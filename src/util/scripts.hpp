@@ -256,123 +256,94 @@ incorrect:
 
 	inline void unlock_all()
 	{
-		int unlocks[12] = { 9185, 25791, 29969, 30902, 31119, 31675, 31756, 31757, 33794, 33915, 33916 };
+		/*int unlocks[12] = {9185, 25791, 29969, 30902, 31119, 31675, 31756, 31757, 33794, 33915, 33916};
 		for (int i = 0; i < sizeof(unlocks); i++) {
 			*script_global(262145).at(unlocks[i]).as<int*>() = 1;
-		}
-		std::this_thread::sleep_for(50ms);
+		}*/
 		for (int i = 8297; i < 8303; i++) {
 			*script_global(262145).at(i).as<int*>() = 1;
 		}
-		std::this_thread::sleep_for(50ms);
 		for (int i = 11955; i < 11964; i++) {
 			*script_global(262145).at(i).as<int*>() = 1;
 		}
-		std::this_thread::sleep_for(50ms);
 		for (int i = 12591; i < 12613; i++) {
 			*script_global(262145).at(i).as<int*>() = 1;
 		}
-		std::this_thread::sleep_for(50ms);
 		for (int i = 15222; i < 15236; i++) {
 			*script_global(262145).at(i).as<int*>() = 1;
 		}
-		std::this_thread::sleep_for(50ms);
 		for (int i = 16784; i < 16790; i++) {
 			*script_global(262145).at(i).as<int*>() = 1;
 		}
-		std::this_thread::sleep_for(50ms);
 		for (int i = 17532; i < 17553; i++) {
 			*script_global(262145).at(i).as<int*>() = 1;
 		}
-		std::this_thread::sleep_for(50ms);
 		for (int i = 21109; i < 21147; i++) {
 			*script_global(262145).at(i).as<int*>() = 1;
 		}
-		std::this_thread::sleep_for(50ms);
 		for (int i = 23407; i < 23414; i++) {
 			*script_global(262145).at(i).as<int*>() = 1;
 		}
-		std::this_thread::sleep_for(50ms);
 		for (int i = 23434; i < 23437; i++) {
 			*script_global(262145).at(i).as<int*>() = 1;
 		}
-		std::this_thread::sleep_for(50ms);
 		for (int i = 24204; i < 24230; i++) {
 			*script_global(262145).at(i).as<int*>() = 1;
 		}
-		std::this_thread::sleep_for(50ms);
 		for (int i = 24704; i < 24712; i++) {
 			*script_global(262145).at(i).as<int*>() = 1;
 		}
-		std::this_thread::sleep_for(50ms);
 		for (int i = 24744; i < 24763; i++) {
 			*script_global(262145).at(i).as<int*>() = 1;
 		}
-		std::this_thread::sleep_for(50ms);
 		for (int i = 24918; i < 24941; i++) {
 			*script_global(262145).at(i).as<int*>() = 1;
 		}
-		std::this_thread::sleep_for(50ms);
 		for (int i = 25838; i < 25919; i++) {
 			*script_global(262145).at(i).as<int*>() = 1;
 		}
-		std::this_thread::sleep_for(50ms);
 		for (int i = 27027; i < 27033; i++) {
 			*script_global(262145).at(i).as<int*>() = 1;
 		}
-		std::this_thread::sleep_for(50ms);
 		for (int i = 28316; i < 28335; i++) {
 			*script_global(262145).at(i).as<int*>() = 1;
 		}
-		std::this_thread::sleep_for(50ms);
 		for (int i = 28690; i < 28693; i++) {
 			*script_global(262145).at(i).as<int*>() = 1;
 		}
-		std::this_thread::sleep_for(50ms);
 		for (int i = 29685; i < 29720; i++) {
 			*script_global(262145).at(i).as<int*>() = 1;
 		}
-		std::this_thread::sleep_for(50ms);
 		for (int i = 30087; i < 30277; i++) {
 			*script_global(262145).at(i).as<int*>() = 1;
 		}
-		std::this_thread::sleep_for(50ms);
 		for (int i = 30866; i < 30901; i++) {
 			*script_global(262145).at(i).as<int*>() = 1;
 		}
-		std::this_thread::sleep_for(50ms);
 		for (int i = 30282; i < 30301; i++) {
 			*script_global(262145).at(i).as<int*>() = 1;
 		}
-		std::this_thread::sleep_for(50ms);
 		for (int i = 30911; i < 30916; i++) {
 			*script_global(262145).at(i).as<int*>() = 1;
 		}
-		std::this_thread::sleep_for(50ms);
 		for (int i = 31859; i < 31873; i++) {
 			*script_global(262145).at(i).as<int*>() = 1;
 		}
-		std::this_thread::sleep_for(50ms);
 		for (int i = 31187; i < 31209; i++) {
 			*script_global(262145).at(i).as<int*>() = 1;
 		}
-		std::this_thread::sleep_for(50ms);
 		for (int i = 32907; i < 33038; i++) {
 			*script_global(262145).at(i).as<int*>() = 1;
 		}
-		std::this_thread::sleep_for(50ms);
 		for (int i = 32915; i < 32937; i++) {
 			*script_global(262145).at(i).as<int*>() = 1;
 		}
-		std::this_thread::sleep_for(50ms);
 		for (int i = 33654; i < 33662; i++) {
 			*script_global(262145).at(i).as<int*>() = 1;
 		}
-		std::this_thread::sleep_for(50ms);
 		for (int i = 33973; i < 34044; i++) {
 			*script_global(262145).at(i).as<int*>() = 1;
 		}
-		std::this_thread::sleep_for(50ms);
 		for (int i = 34110; i < 34112; i++) {
 			*script_global(262145).at(i).as<int*>() = 1;
 		}
