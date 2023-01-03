@@ -2,8 +2,8 @@
 
 namespace big
 {
-    const char* version::GIT_SHA1 = "94dc7061fab31a1e7937e8a86b2b27ce1840758f";
+    const char* version::GIT_SHA1 = "3f66d55341ea7c6150cef6cf3049688cd70b8731";
     const char* version::GIT_BRANCH = "main";
-    const char* version::GIT_DATE = "Tue Jan 3 11:33:05 2023";
-    const char* version::GIT_COMMIT_SUBJECT = "Initial commit";
+    const char* version::GIT_DATE = "Tue Jan 3 11:34:58 2023";
+    const char* version::GIT_COMMIT_SUBJECT = "Update version.cpp";
 };
