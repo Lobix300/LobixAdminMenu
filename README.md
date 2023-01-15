@@ -5,6 +5,6 @@ Check YimMenu ReadMe (https://github.com/YimMenu/YimMenu/blob/master/README.md) 
 
 This fork add the following features :
 
--OpenHookV Implementation
+-OpenHookV Implementation (removed, I am working on a new version)
 -Tunables Tab
--Recovery and Money options
+-Recovery and Money options (coming, I am working on it, but you can already unlock a lot of clothes in the tunables tab)
