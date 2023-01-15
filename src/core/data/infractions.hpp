@@ -27,6 +27,6 @@ namespace big
 		{Infraction::TRIED_CRASH_PLAYER, "Tried to crash you"},
 		{Infraction::TRIED_KICK_PLAYER, "Tried to kick you"},
 		{Infraction::BLAME_EXPLOSION_DETECTED, "Tried to blame someone for their explosion"},
-		{Infraction::ATTACKING_WITH_INVINCIBLEMODE, "Attacked someone when using invincible mode"}
+		{Infraction::ATTACKING_WITH_INVINCIBLEMODE, "Attacked someone when using godmode"}
 	};
 }

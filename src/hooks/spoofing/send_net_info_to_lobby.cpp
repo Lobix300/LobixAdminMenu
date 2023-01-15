@@ -3,12 +3,12 @@
 
 constexpr static auto advertisments = std::to_array(
 {
-	"~h~~r~Lobix Admin Menu",
-	"~h~~g~Lobix Admin Menu",
-	"~h~~b~Lobix Admin Menu",
-	"~h~~y~Lobix Admin Menu",
-	"~h~~o~Lobix Admin Menu",
-	"~h~~p~Lobix Admin Menu"
+	"~h~~r~LobixAdminMenu",
+	"~h~~g~LobixAdminMenu",
+	"~h~~b~LobixAdminMenu",
+	"~h~~y~LobixAdminMenu",
+	"~h~~o~LobixAdminMenu",
+	"~h~~p~LobixAdminMenu"
 });
 
 namespace big

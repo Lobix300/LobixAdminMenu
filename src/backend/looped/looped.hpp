@@ -11,6 +11,7 @@ namespace big
 		static void hud_transition_state();
 
 		static void player_good_options();
+		static void player_toxic_options();
 		static void player_spectate();
 		static void player_remote_control_vehicle();
 
@@ -51,7 +52,7 @@ namespace big
 		static void weapons_steal_vehicle_gun();
 		static void weapons_vehicle_gun();
 
-		static void tunables_no_idle_kick();
-		static void tunables_snow();
+		static void drive_train();
+		static void derail_train();
 	};
 }

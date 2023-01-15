@@ -9,8 +9,10 @@
 #include "core/data/apartment_names.hpp"
 #include "core/data/warehouse_names.hpp"
 #include "core/data/command_access_levels.hpp"
-#include <network/Network.hpp>
 #include "hooking.hpp"
+
+#include <network/Network.hpp>
+#include <script/globals/GPBD_FM_3.hpp>
 
 namespace big
 {
@@ -22,6 +24,11 @@ namespace big
 		{
 			session::join_by_rockstar_id(rid);
 		});
+		ImGui::SameLine();
+		components::button("Kick by RID", []
+		{
+			session::kick_by_rockstar_id(rid);
+		});
 
 		static char username[20];
 		ImGui::InputText("Input Username", username, sizeof(username));
@@ -29,7 +36,12 @@ namespace big
 		{
 			session::join_by_username(username);
 		};
-    
+		ImGui::SameLine();
+		if (components::button("Kick by Username"))
+		{
+			session::kick_by_username(username);
+		};
+
 		static char base64[500]{};
 		ImGui::InputText("Session Info", base64, sizeof(base64));
 		components::button("Join Session Info", []
@@ -158,7 +170,7 @@ namespace big
 		{
 			ImGui::Checkbox("Advertise Lobix Admin Menu", &g.session.advertise_menu);
 			if (ImGui::IsItemHovered())
-				ImGui::SetTooltip("Advertise Lobix Admin Menu by spoofing player names to differently colored variants of 'Lobix Admin Menu'. You will not be able to customize the name with this option enabled");
+				ImGui::SetTooltip("Advertise LAM by spoofing player names to differently colored variants of 'LobixAdminMenu'. You will not be able to customize the name with this option enabled");
 
 			if (!g.session.advertise_menu)
 			{
@@ -179,7 +191,7 @@ namespace big
 		ImGui::SameLine();
 		ImGui::Checkbox("Never Wanted", &g.session.never_wanted_all);
 		ImGui::SameLine();
-		ImGui::Checkbox("Semi Invincible Mode", &g.session.semi_invinciblemode_all);
+		ImGui::Checkbox("Semi Invincible mode", &g.session.semi_invinciblemode_all);
 
 		ImGui::Checkbox("Explosion Karma", &g.session.explosion_karma);
 		ImGui::SameLine();
@@ -200,6 +212,8 @@ namespace big
 		}
 
 		components::command_button<"killall">({ }, "Kill Everyone");
+		ImGui::SameLine();
+		components::command_button<"explodeall">({ }, "Explode Everyone");
 
 		ImGui::SameLine();
 
@@ -273,8 +287,10 @@ namespace big
 
 		components::button("TP All To Skydive", [] { g_player_service->iterate([](auto& plyr) { toxic::start_activity(plyr.second, eActivityType::Skydive); }); });
 		ImGui::SameLine();
+
 		components::command_button<"interiortpall">({ 81 }, "TP All To MOC");
 
+		ImGui::SameLine();
 		components::command_button<"interiortpall">({ 123 }, "TP All To Casino");
 		ImGui::SameLine();
 		components::command_button<"interiortpall">({ 124 }, "TP All To Penthouse");

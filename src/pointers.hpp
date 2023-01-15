@@ -6,7 +6,6 @@
 #include "gta/fwddec.hpp"
 #include "gta/replay.hpp"
 #include "memory/byte_patch.hpp"
-#include "asi_loader/pools.hpp"
 
 class CCommunications;
 class FriendRegistry;
@@ -134,6 +133,7 @@ namespace big
 
 		functions::start_get_session_by_gamer_handle m_start_get_session_by_gamer_handle;
 		functions::start_matchmaking_find_sessions m_start_matchmaking_find_sessions;
+		functions::start_get_presence_attributes m_start_get_presence_attributes;
 		functions::join_session_by_info m_join_session_by_info;
 
 		memory::byte_patch* m_bypass_max_count_of_active_sticky_bombs;
@@ -218,6 +218,7 @@ namespace big
 
 		functions::encode_session_info m_encode_session_info;
 		functions::decode_session_info m_decode_session_info;
+		functions::decode_peer_info m_decode_peer_info;
 
 		datafile_commands::SveFileObject* m_main_file_object;
 		functions::load_cloud_file m_load_cloud_file;
@@ -229,13 +230,11 @@ namespace big
 
 		rage::rlGamerInfo* m_chat_gamer_info;
 
-		functions::register_file_t m_register_file{};
-		functions::get_script_handle_t m_get_script_handle{};
-		rage::GenericPool* m_ped_pool{};
-		rage::VehiclePool* m_vehicle_pool{};
-		rage::GenericPool* m_prop_pool{};
-		rage::GenericPool* m_pickup_pool{};
-		rage::GenericPool* m_camera_pool{};
+		functions::send_packet m_send_packet;
+		functions::connect_to_peer m_connect_to_peer;
+    
+		PVOID m_fragment_physics_crash;
+		PVOID m_fragment_physics_crash_2;
 	};
 
 	inline pointers* g_pointers{};

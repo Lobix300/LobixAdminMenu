@@ -4,7 +4,6 @@
 #include "views/view.hpp"
 #include "core/data/hud_component_names.hpp"
 #include "util/scripts.hpp"
-#include "script_global.hpp"
 
 namespace big
 {
@@ -42,7 +41,10 @@ namespace big
 		components::command_checkbox<"fastrun">();
 		//ImGui::Checkbox("No Idle Kick", &g.tunables.no_idle_kick);
 		components::command_checkbox<"walkunder">();
-
+		if(!g.self.super_jump)
+			components::command_checkbox<"beastjump">();
+		if(!g.self.beast_jump)
+			components::command_checkbox<"superjump">();
 		ImGui::EndGroup();
 		ImGui::SameLine();
 		ImGui::BeginGroup();

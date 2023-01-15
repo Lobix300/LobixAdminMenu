@@ -9,8 +9,6 @@
 #include "script_mgr.hpp"
 #include "thread_pool.hpp"
 #include "version.hpp"
-#include "shv_runner.hpp"
-#include "asi_loader/asiloader.hpp"
 
 #include "backend/backend.hpp"
 #include "native_hooks/native_hooks.hpp"
@@ -49,7 +47,7 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 			auto file_manager_instance = std::make_unique<file_manager>(base_dir);
 
 			auto logger_instance = std::make_unique<logger>(
-				"Lobix Admin Menu",
+				"LobixAdminMenu",
 				file_manager_instance->get_project_file("./cout.log")
 			);
 
@@ -106,14 +104,12 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 				g_script_mgr.add_script(std::make_unique<script>(&backend::vehicles_loop, "Vehicle"));
 				g_script_mgr.add_script(std::make_unique<script>(&backend::misc_loop, "Miscellaneous"));
 				g_script_mgr.add_script(std::make_unique<script>(&backend::remote_loop, "Remote"));
-				//g_script_mgr.add_script(std::make_unique<script>(&backend::tunables, "Tunables"));
 				g_script_mgr.add_script(std::make_unique<script>(&backend::lscustoms_loop, "LS Customs"));
 				g_script_mgr.add_script(std::make_unique<script>(&backend::rainbowpaint_loop, "Rainbow Paint"));
 				g_script_mgr.add_script(std::make_unique<script>(&backend::vehiclefly_loop, "Vehicle Fly"));
 				g_script_mgr.add_script(std::make_unique<script>(&backend::turnsignal_loop, "Turn Signals"));
 				g_script_mgr.add_script(std::make_unique<script>(&backend::disable_control_action_loop, "Disable Controls"));
 				g_script_mgr.add_script(std::make_unique<script>(&context_menu_service::context_menu, "Context Menu"));
-				g_script_mgr.add_script(std::make_unique<script>(&shv_runner::script_func, "ASI Loader"));
 				LOG(INFO) << "Scripts registered.";
 
 				g_hooking->enable();
@@ -123,8 +119,6 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 				LOG(INFO) << "Dynamic native hooker initialized.";
 
 				g_running = true;
-
-				ASILoader::Initialize();
 
 				while (g_running)
 					std::this_thread::sleep_for(500ms);

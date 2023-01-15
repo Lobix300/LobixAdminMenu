@@ -11,7 +11,7 @@ namespace big
 		if (ImGui::Button("Apply##gui-scale"))
 			g_renderer->rescale(g.window.gui_scale);
 		if (ImGui::IsItemHovered())
-			ImGui::SetTooltip("Changing the UI scale may break rendering and require you to unload and inject Lobix Admin Menu again.");
+			ImGui::SetTooltip("Changing the UI scale may break rendering and require you to unload and inject LobixAdminMenu again.");
 
 		components::sub_title("Colors");
 		static ImVec4 col_gui = ImGui::ColorConvertU32ToFloat4(g.window.color);
