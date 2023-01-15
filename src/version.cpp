@@ -2,8 +2,8 @@
 
 namespace big
 {
-    const char* version::GIT_SHA1 = "a8135351bf5e04b5837c8a135218c8c67234b298-dirty";
+    const char* version::GIT_SHA1 = "e5d080ed6c068ff2ab8d26740b4b545560cbb9a8";
     const char* version::GIT_BRANCH = "main";
-    const char* version::GIT_DATE = "Wed Jan 4 12:40:08 2023";
-    const char* version::GIT_COMMIT_SUBJECT = "fixed versions";
+    const char* version::GIT_DATE = "Sun Jan 15 21:04:21 2023";
+    const char* version::GIT_COMMIT_SUBJECT = "Merge branch 'main' of https://github.com/Lobix300/LobixAdminMenu";
 };

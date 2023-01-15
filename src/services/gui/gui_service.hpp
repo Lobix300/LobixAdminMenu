@@ -86,6 +86,7 @@ namespace big
 			{tabs::NETWORK, { "Network", nullptr, {
 				{ tabs::SPOOFING, { "Spoofing", view::spoofing }},
 				{ tabs::SESSION, { "Session", view::session }},
+				{ tabs::TUNABLES, { "Tunables"}, view::tunables }},
 				{ tabs::PLAYER_DATABASE, { "Player Database", view::player_database }},
 				{ tabs::SESSION_BROWSER, { "Session Browser", view::session_browser }},
 			}}},
