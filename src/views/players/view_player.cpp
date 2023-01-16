@@ -14,6 +14,7 @@ namespace big
 			view::player_info();
 			view::player_troll();
 			view::player_kick();
+			view::player_crash();
 			view::player_toxic();
 			view::player_misc();
 		}

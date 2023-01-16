@@ -50,10 +50,12 @@ namespace big
 		static void gta_data();
 		static void creator();
 		static void train();
+		static void water();
 
 		static void player_info();
 		static void player_troll();
 		static void player_kick();
+		static void player_crash();
 		static void player_toxic();
 		static void player_misc();
 	};
