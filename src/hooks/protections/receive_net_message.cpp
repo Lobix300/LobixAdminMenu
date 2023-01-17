@@ -187,7 +187,7 @@ namespace big
 						}
 						else
 						{
-							g.reactions.breakup_others.process(player, pl);
+							//g.reactions.breakup_others.process(player, pl); temporary fix crash
 							session::add_infraction(player, Infraction::BREAKUP_KICK_DETECTED);
 
 							if (g.reactions.breakup_others.karma)
