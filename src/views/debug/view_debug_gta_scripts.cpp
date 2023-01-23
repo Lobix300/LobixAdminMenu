@@ -11,7 +11,7 @@ namespace big
 	void debug::gta_scripts()
 	{
 		if (ImGui::BeginTabItem("GTA Scripts")) {
-			static char name[32] = "";
+			/*static char name[32] = "";
 			static char stack[32] = "";
 			components::input_text_with_hint("##global_name", "Script Name", name, sizeof(name));
 			components::input_text_with_hint("##stack_size", "Stack Size", stack, sizeof(stack));
@@ -25,7 +25,7 @@ namespace big
 					SCRIPT::SET_SCRIPT_AS_NO_LONGER_NEEDED(name);
 				}
 			}
-			ImGui::Separator();
+			ImGui::Separator();*/
 			static GtaThread* selected_thread{};
 			if (ImGui::ListBoxHeader("##scripts", ImVec2(250, 250)))
 			{
