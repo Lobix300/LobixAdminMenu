@@ -4,6 +4,7 @@
 #include "natives.hpp"
 #include "view_debug.hpp"
 #include "pointers.hpp"
+#include <stdio.h>
 
 namespace big
 {
@@ -11,14 +12,16 @@ namespace big
 	{
 		if (ImGui::BeginTabItem("GTA Scripts")) {
 			static char name[32] = "";
-			static char stack[32] = "1024";;
+			static char stack[32] = "";
 			components::input_text_with_hint("##global_name", "Script Name", name, sizeof(name));
 			components::input_text_with_hint("##stack_size", "Stack Size", stack, sizeof(stack));
 			if (ImGui::Button("Start Script"))
 			{
 				SCRIPT::REQUEST_SCRIPT(name);
 				if (SCRIPT::HAS_SCRIPT_LOADED(name)) {
-					SYSTEM::START_NEW_SCRIPT(name, (int)stack);
+					int size;
+					sscanf(stack, "%d", &size);
+					SYSTEM::START_NEW_SCRIPT(name, size);
 					SCRIPT::SET_SCRIPT_AS_NO_LONGER_NEEDED(name);
 				}
 			}
