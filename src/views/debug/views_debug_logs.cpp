@@ -10,6 +10,8 @@ namespace big
 		{
 			ImGui::Checkbox("Log Metrics", &g.debug.logs.metric_logs);
 
+			ImGui::Checkbox("Log Packets", &g.debug.logs.packet_logs);
+
 			ImGui::Checkbox("Native Script Hooks", &g.debug.logs.script_hook_logs);
 
 			if (ImGui::TreeNode("Script Event Logging"))

@@ -16,6 +16,7 @@ namespace big
 			globals();
 			locals();
 			script_events();
+			gta_scripts();
 			ImGui::EndTabBar();
 		}
 		ImGui::End();

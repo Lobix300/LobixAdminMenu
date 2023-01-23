@@ -33,11 +33,13 @@ namespace big
 		NETWORK,
 		TUNABLES,
 		SESSION,
+		MISSIONS,
 		SPOOFING,
 		PLAYER_DATABASE,
 		SESSION_BROWSER,
 
 		SETTINGS,
+		STAT_EDITOR,
 		CONTEXT_MENU_SETTINGS,
 		ESP_SETTINGS,
 		GUI_SETTINGS,
@@ -88,11 +90,13 @@ namespace big
 			{tabs::NETWORK, { "Network", nullptr, {
 				{ tabs::SPOOFING, { "Spoofing", view::spoofing }},
 				{ tabs::SESSION, { "Session", view::session }},
+				{ tabs::MISSIONS, { "Missions", view::missions }},
 				{ tabs::TUNABLES, { "Tunables", view::tunables }},
 				{ tabs::PLAYER_DATABASE, { "Player Database", view::player_database }},
 				{ tabs::SESSION_BROWSER, { "Session Browser", view::session_browser }},
 			}}},
 			{tabs::SETTINGS, { "Settings", view::settings, {
+				{ tabs::STAT_EDITOR, { "Stat Editor", view::stat_editor}},
 				{ tabs::CONTEXT_MENU_SETTINGS, { "Context Menu", view::context_menu_settings}},
 				{ tabs::ESP_SETTINGS, { "ESP", view::esp_settings}},
 				{ tabs::GUI_SETTINGS, { "GUI", view::gui_settings}},

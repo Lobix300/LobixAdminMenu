@@ -21,14 +21,14 @@ namespace big
 		static uint64_t rid = 0;
 		ImGui::InputScalar("Input RID", ImGuiDataType_U64, &rid);
 		components::button("Join by RID", []
-		{
-			session::join_by_rockstar_id(rid);
-		});
+			{
+				session::join_by_rockstar_id(rid);
+			});
 		ImGui::SameLine();
 		components::button("Kick by RID", []
-		{
-			session::kick_by_rockstar_id(rid);
-		});
+			{
+				session::kick_by_rockstar_id(rid);
+			});
 
 		static char username[20];
 		components::input_text("Input Username", username, sizeof(username));
@@ -45,18 +45,18 @@ namespace big
 		static char base64[500]{};
 		components::input_text("Session Info", base64, sizeof(base64));
 		components::button("Join Session Info", []
-		{
-			rage::rlSessionInfo info;
-			g_pointers->m_decode_session_info(&info, base64, nullptr);
-			session::join_session(info);
-		});
+			{
+				rage::rlSessionInfo info;
+		g_pointers->m_decode_session_info(&info, base64, nullptr);
+		session::join_session(info);
+			});
 		ImGui::SameLine();
 		components::button("Copy Current Session Info", []
-		{
-			char buf[0x100];
-			g_pointers->m_encode_session_info(&gta_util::get_network()->m_game_session.m_rline_session.m_session_info, buf, 0x7D, nullptr);
-			ImGui::SetClipboardText(buf);
-		});
+			{
+				char buf[0x100];
+		g_pointers->m_encode_session_info(&gta_util::get_network()->m_game_session.m_rline_session.m_session_info, buf, 0x7D, nullptr);
+		ImGui::SetClipboardText(buf);
+			});
 
 		components::sub_title("Session Switcher");
 		if (ImGui::ListBoxHeader("###session_switch"))
@@ -64,22 +64,22 @@ namespace big
 			for (const auto& session_type : sessions)
 			{
 				components::selectable(session_type.name, false, [&session_type]
-				{
-					session::join_type(session_type.id);
-				});
+					{
+						session::join_type(session_type.id);
+					});
 			}
 			ImGui::EndListBox();
 		}
-		
+
 		components::sub_title("Region Switcher");
 		if (ImGui::ListBoxHeader("###region_switch"))
 		{
 			for (const auto& region_type : regions)
 			{
 				components::selectable(region_type.name, *g_pointers->m_region_code == region_type.id, [&region_type]
-				{
-					*g_pointers->m_region_code = region_type.id;
-				});
+					{
+						*g_pointers->m_region_code = region_type.id;
+					});
 			}
 			ImGui::EndListBox();
 		}
@@ -97,7 +97,9 @@ namespace big
 
 		components::sub_title("Chat");
 		ImGui::Checkbox("Auto-kick Chat Spammers", &g.session.kick_chat_spammers);
-		ImGui::Checkbox("Disable Filter", &g.session.disable_chat_filter);
+		ImGui::Checkbox("Force Clean", &g.session.disable_chat_filter);
+		if (ImGui::IsItemHovered())
+			ImGui::SetTooltip("Your sent chat messages will not be censored to the receivers");
 		ImGui::Checkbox("Log Chat Messages", &g.session.log_chat_messages);
 		ImGui::Checkbox("Log Text Messages", &g.session.log_text_messages);
 		static char msg[256];
@@ -106,13 +108,13 @@ namespace big
 		ImGui::Checkbox("Is Team", &g.session.is_team);
 		ImGui::SameLine();
 		components::button("Send", []
-		{
-            if (const auto net_game_player = gta_util::get_network_player_mgr()->m_local_net_player; net_game_player)
 			{
-                if (g_hooking->get_original<hooks::send_chat_message>()(*g_pointers->m_send_chat_ptr, net_game_player->get_net_data(), msg, g.session.is_team))
-					notify::draw_chat(msg, net_game_player->get_name(), g.session.is_team);
-			}
-		});
+				if (const auto net_game_player = gta_util::get_network_player_mgr()->m_local_net_player; net_game_player)
+				{
+					if (g_hooking->get_original<hooks::send_chat_message>()(*g_pointers->m_send_chat_ptr, net_game_player->get_net_data(), msg, g.session.is_team))
+						notify::draw_chat(msg, net_game_player->get_name(), g.session.is_team);
+				}
+			});
 
 		ImGui::Checkbox("Chat Commands", &g.session.chat_commands);
 		if (g.session.chat_commands)
@@ -154,11 +156,15 @@ namespace big
 		{
 			if (g.session.force_script_host)
 				g_fiber_pool->queue_job([]
-			{
-				scripts::force_host(RAGE_JOAAT("freemode"));
-				if (auto script = gta_util::find_script_thread(RAGE_JOAAT("freemode")); script && script->m_net_component)
-					script->m_net_component->block_host_migration(true);
-			});
+					{
+						scripts::force_host(RAGE_JOAAT("freemode"));
+			if (auto script = gta_util::find_script_thread(RAGE_JOAAT("freemode")); script && script->m_net_component)
+				script->m_net_component->block_host_migration(true);
+
+			scripts::force_host(RAGE_JOAAT("fmmc_launcher"));
+			if (auto script = gta_util::find_script_thread(RAGE_JOAAT("fmmc_launcher")); script && script->m_net_component)
+				script->m_net_component->block_host_migration(true);
+					});
 		}
 
 		components::sub_title("Remote Name Spoofing");
@@ -168,9 +174,9 @@ namespace big
 
 		if (g.session.name_spoof_enabled)
 		{
-			ImGui::Checkbox("Advertise Lobix Admin Menu", &g.session.advertise_menu);
+			ImGui::Checkbox("Advertise YimMenu", &g.session.advertise_menu);
 			if (ImGui::IsItemHovered())
-				ImGui::SetTooltip("Advertise LAM by spoofing player names to differently colored variants of 'LobixAdminMenu'. You will not be able to customize the name with this option enabled");
+				ImGui::SetTooltip("Advertise YimMenu by spoofing player names to differently colored variants of 'YimMenu'. You will not be able to customize the name with this option enabled");
 
 			if (!g.session.advertise_menu)
 			{
@@ -191,7 +197,7 @@ namespace big
 		ImGui::SameLine();
 		ImGui::Checkbox("Never Wanted", &g.session.never_wanted_all);
 		ImGui::SameLine();
-		ImGui::Checkbox("Semi Invincible mode", &g.session.semi_invinciblemode_all);
+		ImGui::Checkbox("Semi Invincible Mode", &g.session.semi_invinciblemode_all);
 
 		ImGui::Checkbox("Explosion Karma", &g.session.explosion_karma);
 		ImGui::SameLine();
@@ -217,7 +223,6 @@ namespace big
 
 		ImGui::SameLine();
 
-
 		components::command_button<"beastall">({ });
 		if (ImGui::IsItemHovered())
 			ImGui::SetTooltip("Including you");
@@ -226,12 +231,27 @@ namespace big
 		ImGui::SameLine();
 		components::command_button<"remweapsall">({ });
 
-		components::command_button<"ceokickall">( { });
+		components::command_button<"ceokickall">({ });
 		ImGui::SameLine();
 		components::command_button<"vehkickall">({ });
 
 		components::command_button<"ragdollall">({ }, "Ragdoll Players");
+		ImGui::SameLine();
 		components::command_button<"intkickall">({ }, "Kick Everyone From Interiors");
+
+		components::command_button<"missionall">({ });
+		ImGui::SameLine();
+		components::command_button<"errorall">({ });
+
+		components::command_button<"ceoraidall">({ });
+		ImGui::SameLine();
+		components::button("Trigger MC Raid", [] { g_player_service->iterate([](auto& plyr) { toxic::start_activity(plyr.second, eActivityType::BikerDefend); }); });
+		ImGui::SameLine();
+		components::button("Trigger Bunker Raid", [] { g_player_service->iterate([](auto& plyr) { toxic::start_activity(plyr.second, eActivityType::GunrunningDefend); }); });
+
+		components::command_button<"sextall">({ }, "Send Sexts");
+		ImGui::SameLine();
+		components::command_button<"fakebanall">({ }, "Send Fake Ban Messages");
 
 		components::small_text("Teleports");
 
@@ -309,47 +329,23 @@ namespace big
 		ImGui::SameLine();
 		components::command_button<"interiortpall">({ 161 }, "TP All To Multi Floor Garage");
 
-		components::sub_title("Event Starter");
-		
-		ImGui::BeginGroup();
-		components::button("Hot Target", [] { scripts::start_launcher_script(36); });
-		components::button("Kill List", [] { scripts::start_launcher_script(37); });
-		components::button("Checkpoints", [] { scripts::start_launcher_script(39); });
-		components::button("Challenges", [] { scripts::start_launcher_script(40); });
-		components::button("Penned In", [] { scripts::start_launcher_script(41); });
-		ImGui::EndGroup();
-
+		components::command_button<"tutorialall">();
 		ImGui::SameLine();
-
-		ImGui::BeginGroup();
-		components::button("Hot Property", [] { scripts::start_launcher_script(43); });
-		components::button("King Of The Castle", [] { scripts::start_launcher_script(45); });
-		components::button("Criminal Damage", [] { scripts::start_launcher_script(46); });
-		components::button("Hunt The Beast", [] { scripts::start_launcher_script(47); });
-		components::button("Business Battles", [] { scripts::start_launcher_script(114); });
-		ImGui::EndGroup();
-
+		components::command_button<"golfall">();
 		ImGui::SameLine();
-
-		ImGui::BeginGroup();
-		components::button("One-On-One Deathmatch", [] { scripts::start_launcher_script(197); });
-		components::button("Impromptu Race", [] { scripts::start_launcher_script(16); });
-		components::button("Flight School", [] { scripts::start_launcher_script(196); });
-		components::button("Golf", [] { scripts::start_launcher_script(193); });
-		components::button("Tutorial", [] { scripts::start_launcher_script(20); });
-		if (ImGui::IsItemHovered())
-			ImGui::SetTooltip("Only works on joining players");
-		ImGui::EndGroup();
-
+		components::command_button<"flightschoolall">();
 		ImGui::SameLine();
+		components::command_button<"dartsall">();
 
-		ImGui::BeginGroup();
-		components::button("Gunslinger", [] { scripts::start_launcher_script(211); });
-		components::button("Space Monkey", [] { scripts::start_launcher_script(216); });
-		components::button("Wizard", [] { scripts::start_launcher_script(212); });
-		components::button("QUB3D", [] { scripts::start_launcher_script(217); });
-		components::button("Camhedz", [] { scripts::start_launcher_script(218); });
-		ImGui::EndGroup();
+		components::command_button<"badlandsall">();
+		ImGui::SameLine();
+		components::command_button<"spacemonkeyall">();
+		ImGui::SameLine();
+		components::command_button<"wizardall">();
+
+		components::command_button<"qub3dall">();
+		ImGui::SameLine();
+		components::command_button<"camhedzall">();
 
 		ImGui::Checkbox("Disable Pedestrians", &g.session.disable_peds);
 		ImGui::SameLine();
@@ -379,5 +375,12 @@ namespace big
 			ImGui::SetTooltip("Blocks CEO money drops across the entire session. This can also break other stuff, use with caution");
 		ImGui::SameLine();
 		ImGui::Checkbox("Randomize CEO Colors", &g.session.randomize_ceo_colors);
+		ImGui::Checkbox("Block Jobs", &g.session.block_jobs);
+		if (ImGui::IsItemHovered())
+			ImGui::SetTooltip("Prevents remote players from starting jobs while in your session");
+		ImGui::SameLine();
+		components::script_patch_checkbox("Block Muggers", &g.session.block_muggers, "For the entire session");
+		ImGui::SameLine();
+		components::script_patch_checkbox("Block CEO Raids", &g.session.block_ceo_raids, "For the entire session");
 	}
 }

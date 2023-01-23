@@ -15,6 +15,8 @@ namespace big
 		g_script_patcher_service->add_patch({ RAGE_JOAAT("freemode"), "2D 00 07 00 00 7B", 5, { 0x2E, 0x00, 0x00 }, nullptr });  // disable population load balancing
 		g_script_patcher_service->add_patch({ RAGE_JOAAT("shop_controller"), "2D 01 04 00 00 2C ? ? ? 56 ? ? 71", 5, { 0x71, 0x2E, 0x01, 0x01 }, nullptr }); // despawn bypass
 		g_script_patcher_service->add_patch({ RAGE_JOAAT("shop_controller"), "38 00 5D ? ? ? 38 00 5D ? ? ? 38 00 41", 0, std::vector<uint8_t>(12, 0x0), nullptr}); // invincible mode/invisibility detection bypass
+		g_script_patcher_service->add_patch({ RAGE_JOAAT("freemode"), "2D 02 08 00 00 38 01 56", 5, { 0x2E, 0x02, 0x00 }, &g.session.block_muggers });
+		g_script_patcher_service->add_patch({ RAGE_JOAAT("freemode"), "2D 00 CF 00 00 ", 5, { 0x2E, 0x00, 0x00 }, &g.session.block_ceo_raids });
 
 		for (auto& entry : *g_pointers->m_script_program_table)
 		{
